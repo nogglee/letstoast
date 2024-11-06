@@ -9,6 +9,7 @@ function Home() {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
   const [customTimes, setCustomTimes] = useState({ green: 0, yellow: 0, red: 0 }); // 커스텀 시간
+  const [isNameDisabled, setIsNameDisabled] = useState(true);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,33 +32,51 @@ function Home() {
     }));
   };
 
+  const handleTypeSelect = (selectedType) => {
+    setType(selectedType);
+    setIsNameDisabled(false);
+  };
+
   return (
-    <div>
-      <h2>{t('title')}</h2>
+    <div className="container mx-auto px-4 py-8">
+      <h2 className="text-2xl font-bold mb-8 text-center">{t('title')}</h2>
 
-      <form onSubmit={handleSubmit}>
-        <label>
-          {t('nameLabel')}:
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder={t('namePlaceholder')}
-          />
-        </label>
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-2 gap-4 mb-6">
+          {['type1', 'type2', 'type3', 'custom'].map((typeOption) => (
+            <button
+              key={typeOption}
+              type="button"
+              onClick={() => handleTypeSelect(typeOption)}
+              className={`p-4 rounded-lg text-center transition-colors duration-200
+                ${type === typeOption 
+                  ? 'bg-blue-500 text-white' 
+                  : 'bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50'
+                }`}
+            >
+              {t(typeOption)}
+            </button>
+          ))}
+        </div>
 
-        <label>
-          {t('typeLabel')}:
-          <select value={type} onChange={(e) => setType(e.target.value)}>
-            <option value="">{t('selectType')}</option>
-            <option value="type1">{t('type1')}</option>
-            <option value="type2">{t('type2')}</option>
-            <option value="type3">{t('type3')}</option>
-            <option value="custom">{t('custom')}</option>
-          </select>
-        </label>
+        <div className="space-y-2">
+          <label className="block text-gray-700">
+            {t('nameLabel')}:
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder={t('namePlaceholder')}
+              disabled={isNameDisabled}
+              className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm
+                ${isNameDisabled 
+                  ? 'bg-gray-100 cursor-not-allowed' 
+                  : 'focus:border-blue-500 focus:ring-blue-500'
+                }`}
+            />
+          </label>
+        </div>
 
-        {/* 커스텀 시간 입력 */}
         {type === 'custom' && (
           <div>
             <label>
@@ -90,10 +109,26 @@ function Home() {
           </div>
         )}
 
-        <button type="submit">{t('startButton')}</button>
-        <button type="button" onClick={() => navigate('/result')}>
-          {t('resultButton')}
-        </button>
+        <div className="flex gap-4 justify-center mt-8">
+          <button
+            type="submit"
+            disabled={!name || !type}
+            className={`px-6 py-2 rounded-lg font-medium
+              ${(!name || !type)
+                ? 'bg-gray-300 cursor-not-allowed'
+                : 'bg-blue-500 text-white hover:bg-blue-600'
+              }`}
+          >
+            {t('startButton')}
+          </button>
+          <button
+            type="button"
+            onClick={() => navigate('/result')}
+            className="px-6 py-2 rounded-lg font-medium bg-gray-500 text-white hover:bg-gray-600"
+          >
+            {t('resultButton')}
+          </button>
+        </div>
       </form>
     </div>
   );

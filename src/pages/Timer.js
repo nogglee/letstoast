@@ -53,6 +53,7 @@ function Timer() {
 
   const handleStop = () => {
     const currentTime = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
+    const stopTime = Date.now();
     const expirationTime = Date.now() + 24 * 60 * 60 * 1000;
     const isUnderGreen = minutes < greenTime;
     const isOverRed = minutes >= redTime && seconds > 30;
@@ -61,7 +62,9 @@ function Timer() {
       time: currentTime, 
       expiration: expirationTime,
       isUnderGreen,
-      isOverRed
+      isOverRed,
+      name,
+      stopTime
     }));
     
     navigate('/result');

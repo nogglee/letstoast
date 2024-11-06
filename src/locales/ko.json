@@ -9,5 +9,6 @@
   "type2": "타입 2",
   "type3": "타입 3",
   "custom": "커스텀",
-  "startButton": "시작하기"
+  "startButton": "시작하기",
+  "resultButton": "기록보기"
 }

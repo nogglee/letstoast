@@ -5,20 +5,30 @@ import { useTranslation } from 'react-i18next';
 function Home() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  
-  // 상태 관리: 이름과 타입
+
   const [name, setName] = useState('');
   const [type, setType] = useState('');
+  const [customTimes, setCustomTimes] = useState({ green: 0, yellow: 0, red: 0 }); // 커스텀 시간
 
-  // 폼 제출 시 호출되는 함수
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name && type) {
-      // 입력된 이름과 타입을 query parameter로 다음 페이지에 전달
-      navigate(`/timer?name=${name}&type=${type}`);
+      const queryParams = new URLSearchParams({
+        name,
+        type,
+        ...customTimes, // 커스텀 시간 포함
+      });
+      navigate(`/timer?${queryParams.toString()}`);
     } else {
       alert('이름과 타입을 선택해주세요');
     }
+  };
+
+  const handleCustomTimeChange = (color, value) => {
+    setCustomTimes((prev) => ({
+      ...prev,
+      [color]: value,
+    }));
   };
 
   return (
@@ -26,9 +36,8 @@ function Home() {
       <h2>{t('title')}</h2>
 
       <form onSubmit={handleSubmit}>
-        {/* 이름 입력란 */}
         <label>
-          {t('nameLabel')}: 
+          {t('nameLabel')}:
           <input
             type="text"
             value={name}
@@ -37,9 +46,8 @@ function Home() {
           />
         </label>
 
-        {/* 타입 선택 */}
         <label>
-          {t('typeLabel')}: 
+          {t('typeLabel')}:
           <select value={type} onChange={(e) => setType(e.target.value)}>
             <option value="">{t('selectType')}</option>
             <option value="type1">{t('type1')}</option>
@@ -49,8 +57,43 @@ function Home() {
           </select>
         </label>
 
-        {/* 제출 버튼 */}
+        {/* 커스텀 시간 입력 */}
+        {type === 'custom' && (
+          <div>
+            <label>
+              Green Time:
+              <input
+                type="number"
+                value={customTimes.green}
+                onChange={(e) => handleCustomTimeChange('green', e.target.value)}
+                placeholder="분 단위로 입력"
+              />
+            </label>
+            <label>
+              Yellow Time:
+              <input
+                type="number"
+                value={customTimes.yellow}
+                onChange={(e) => handleCustomTimeChange('yellow', e.target.value)}
+                placeholder="분 단위로 입력"
+              />
+            </label>
+            <label>
+              Red Time:
+              <input
+                type="number"
+                value={customTimes.red}
+                onChange={(e) => handleCustomTimeChange('red', e.target.value)}
+                placeholder="분 단위로 입력"
+              />
+            </label>
+          </div>
+        )}
+
         <button type="submit">{t('startButton')}</button>
+        <button type="button" onClick={() => navigate('/result')}>
+          {t('resultButton')}
+        </button>
       </form>
     </div>
   );

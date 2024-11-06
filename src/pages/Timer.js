@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 function Timer() {
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const name = queryParams.get('name');
   const type = queryParams.get('type');
 
+  const customGreen = parseInt(queryParams.get('green'), 10);
+  const customYellow = parseInt(queryParams.get('yellow'), 10);
+  const customRed = parseInt(queryParams.get('red'), 10);
+
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const [stage, setStage] = useState('bg-green-500');
-  const [isPaused, setIsPaused] = useState(false); // 일시정지 상태 관리
+  const [isPaused, setIsPaused] = useState(false);
 
   const typeSettings = {
     type1: [5, 6, 7],
     type2: [3, 4, 5],
     type3: [8, 9, 10],
-    custom: [4, 5, 6]
+    custom: [customGreen || 5, customYellow || 6, customRed || 7]
   };
+
   const [greenTime, yellowTime, redTime] = typeSettings[type] || [5, 6, 7];
 
-  // 타이머와 색상 변경 로직
   useEffect(() => {
     if (isPaused) return;
 
@@ -42,16 +47,24 @@ function Timer() {
     return () => clearInterval(timer);
   }, [minutes, seconds, greenTime, yellowTime, redTime, isPaused]);
 
-  // 일시정지 기능
   const handlePause = () => {
-    setIsPaused((prev) => !prev); // 일시정지 상태 토글
+    setIsPaused((prev) => !prev);
   };
 
-  // 정지 기능 및 로컬 스토리지에 시간 저장
   const handleStop = () => {
     const currentTime = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
-    localStorage.setItem('savedTime', currentTime); // 시간 저장
-    alert(`Time saved: ${currentTime}`);
+    const expirationTime = Date.now() + 24 * 60 * 60 * 1000;
+    const isUnderGreen = minutes < greenTime;
+    const isOverRed = minutes >= redTime && seconds > 30;
+
+    localStorage.setItem('savedTime', JSON.stringify({ 
+      time: currentTime, 
+      expiration: expirationTime,
+      isUnderGreen,
+      isOverRed
+    }));
+    
+    navigate('/result');
   };
 
   return (
@@ -63,7 +76,6 @@ function Timer() {
       </h1>
       <p className="text-xl mt-4">Stage: {stage}</p>
 
-      {/* 일시정지 및 정지 버튼 */}
       <div className="flex space-x-4 mt-8">
         <button
           onClick={handlePause}

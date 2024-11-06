@@ -1,4 +1,13 @@
 {
   "title": "Let's Toast!",
-  "welcomeMessage": "한국어버전"
+  "welcomeMessage": "한국어버전",
+  "nameLabel": "이름",
+  "typeLabel": "타입 선택",
+  "namePlaceholder": "이름을 입력하세요",
+  "selectType": "타입을 선택하세요",
+  "type1": "타입 1",
+  "type2": "타입 2",
+  "type3": "타입 3",
+  "custom": "커스텀",
+  "startButton": "시작하기"
 }

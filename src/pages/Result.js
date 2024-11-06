@@ -107,7 +107,7 @@ function Result() {
 
       {previousResults.length > 1 && (
         <div className="bg-white p-8 rounded-lg shadow-md w-96">
-          <h2 className="text-xl font-bold mb-4">이전 기록</h2>
+          <h2 className="text-xl font-bold mb-4">오늘의 기록</h2>
           <div className="space-y-4">
             {previousResults.slice(1).map((result, index) => (
               <div key={index} className="border-b pb-2">

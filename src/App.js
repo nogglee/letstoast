@@ -27,14 +27,14 @@ function App() {
           <meta property="og:site_name" content={t('title')} />
           <meta property="og:title" content={t('title')} />
           <meta property="og:description" content={t('description')} />
-          <meta property="og:image" content="%PUBLIC_URL%/og-image.png" />
+          <meta property="og:image" content="https://letstoast.vercel.app/og-image.png" />
           <meta property="og:locale" content={i18n.language} />
 
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:url" content="https://letstoast.vercel.app/" />
           <meta name="twitter:title" content={t('title')} />
           <meta name="twitter:description" content={t('description')} />
-          <meta name="twitter:image" content="%PUBLIC_URL%/images/og-image.png" />
+          <meta name="twitter:image" content="https://letstoast.vercel.app/og-image.png" />
         </Helmet>
 
         <h1>{t('title')}</h1>

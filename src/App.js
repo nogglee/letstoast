@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import LanguageSelector from './components/LanguageSelector';
+import './App.css';
 import Home from './pages/Home'; 
 import Timer from './pages/Timer';
 import Result from './pages/Result';
@@ -19,8 +19,7 @@ function App() {
 
   return (
     <Router>
-      <div className="relative min-h-screen">
-        <LanguageSelector />
+      <div className="flex justify-center min-h-screen">
         <Routes>
           <Route path="/:lang" element={<Home />} />
           <Route path="/:lang/timer" element={<Timer />} />

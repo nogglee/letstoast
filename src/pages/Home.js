@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import Header from '../components/Header';
 
 function Home() {
   const { t, i18n } = useTranslation();
@@ -44,7 +45,8 @@ function Home() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container h-screen flex flex-col items-center">
+      <Header />
       <h2 className="text-2xl font-bold mb-8 text-center">{t('title')}</h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">

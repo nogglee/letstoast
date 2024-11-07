@@ -28,11 +28,6 @@
   color: #61dafb;
 }
 
-/* src/App.css */
-body {
-  background-color: #ffffff;
-  /* 작은 색상 변경 */
-}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

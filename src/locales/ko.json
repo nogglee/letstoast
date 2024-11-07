@@ -6,10 +6,10 @@
   "typeLabel": "타입 선택",
   "namePlaceholder": "이름을 입력하세요",
   "selectType": "타입을 선택하세요",
-  "type1": "타입 1",
-  "type2": "타입 2",
-  "type3": "타입 3",
-  "custom": "커스텀",
+  "type1": "준비된 연설자",
+  "type2": "즉흥 연설자",
+  "type3": "평가자",
+  "custom": "직접입력",
   "startButton": "시작하기",
   "resultButton": "기록보기"
 }

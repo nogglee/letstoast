@@ -20,13 +20,13 @@ function Timer() {
   const [isPaused, setIsPaused] = useState(false);
 
   const typeSettings = {
-    type1: [5, 6, 7],
-    type2: [3, 4, 5],
-    type3: [8, 9, 10],
-    custom: [customGreen || 5, customYellow || 6, customRed || 7]
+    type1: [5, 6, 7, 7.5],
+    type2: [1, 1.3, 2, 2.5],
+    type3: [2, 2.5, 3, 3.5],
+    custom: [customGreen || 5, customYellow || 6, customRed || 7, customRed + 1 || 8]
   };
 
-  const [greenTime, yellowTime, redTime] = typeSettings[type] || [5, 6, 7];
+  const [minTime, midTime, expireTime, maxTime] = typeSettings[type] || [5, 6, 7, 8];
 
   useEffect(() => {
     if (isPaused) return;
@@ -42,12 +42,20 @@ function Timer() {
       });
     }, 1000);
 
-    if (minutes >= greenTime) setStage('bg-yellow-500');
-    if (minutes >= yellowTime) setStage('bg-red-500');
-    if (minutes >= redTime && seconds > 30) setStage('bg-red-500 animate-blink');
+    if (minutes < minTime) {
+      setStage('bg-gray-500');
+    } else if (minutes >= minTime && minutes < midTime) {
+      setStage('bg-green-500');
+    } else if (minutes >= midTime && minutes < expireTime) {
+      setStage('bg-yellow-500');
+    } else if (minutes >= expireTime && minutes < maxTime) {
+      setStage('bg-red-500');
+    } else {
+      setStage('bg-red-500 animate-blink');
+    }
 
     return () => clearInterval(timer);
-  }, [minutes, seconds, greenTime, yellowTime, redTime, isPaused]);
+  }, [minutes, seconds, minTime, midTime, expireTime, maxTime, isPaused]);
 
   const handlePause = () => {
     setIsPaused((prev) => !prev);
@@ -57,8 +65,8 @@ function Timer() {
     const currentTime = `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`;
     const stopTime = Date.now();
     const expirationTime = Date.now() + 24 * 60 * 60 * 1000;
-    const isUnderGreen = minutes < greenTime;
-    const isOverRed = minutes >= redTime && seconds > 30;
+    const isUnderGreen = minutes < minTime;
+    const isOverRed = minutes >= maxTime && seconds > 30;
 
     localStorage.setItem('savedTime', JSON.stringify({ 
       time: currentTime, 

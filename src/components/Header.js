@@ -11,7 +11,7 @@ const Header = () => {
   };
 
   return(
-    <div id="header" className={`w-full h-16 md:h-20 flex justify-between  pl-1 pr-4 md:pl-12 md:pr-16`}>
+    <div id="header" className={`w-full h-16 md:h-20 flex justify-between  pl-1 pr-4 md:pl-14 md:pr-16`}>
       <button onClick={handleLogoClick} className="cursor-pointer">
         <Logo className='h-8 md:h-10'/>
       </button>

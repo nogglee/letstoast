@@ -47,25 +47,25 @@ function Home() {
   return (
     <div className="container min-h-screen flex flex-col items-center bg-blue-500">
       <Header />
-      <div className='flex flex-col gap-5 w-full px-4'>
-        <div className='flex flex-col text-white w-full py-5'>
-          <div className='font-body font-300 text-2xl'>자유로운 연설이</div>
-          <div className='flex flex-row gap-1'>
-            <div className='font-body font-500 text-2xl'>총 nnn분</div>
-            <div className='font-body font-300 text-2xl'>동안</div>
+      <div className='flex flex-col gap-5 w-full px-4 md:px-16'>
+        <div className='flex flex-col text-white w-full py-5 md:gap-1'>
+          <div className='font-body font-300 text-2xl md:text-3xl'>{t('home-headline.01')}</div>
+          <div className='flex flex-row gap-1 md:gap-2'>
+            <div className='font-body font-500 text-2xl md:text-3xl'>{t('home-headline.02')} nnn{t('home-headline.03')}</div>
+            <div className='font-body font-300 text-2xl md:text-3xl'>{t('home-headline.04')}</div>
           </div>
-          <div className='font-body font-300 text-2xl'>발표 되었어요.</div>
-          <h1 className='font-title font-700 text-3xl'>Let's Toast!</h1>
+          <div className='font-body font-300 text-2xl md:text-3xl'>{t('home-headline.05')}</div>
+          <h1 className='font-title font-700 text-3xl md:text-4xl'>Let's Toast!</h1>
         </div>
         <div className='flex flex-col w-full py-5 gap-2.5'>
           <div className='flex flex-row gap-2.5'>
-            <div className='flex-1 bg-blue-100 rounded-lg'></div>
-            <div className='w-20 h-20 bg-blue-600 rounded-lg'></div>
+            <div className='flex-1 md:flex-0 md:w-1/2 bg-blue-100 rounded-lg'></div>
+            <div className='w-20 h-20 md:flex-0 md:w-1/2 bg-blue-600 rounded-lg'></div>
           </div>
           <div className='w-full h-20 bg-blue-700 rounded-lg'></div>
         </div>
       </div>
-      <div className='w-full rounded-t-[26px] bg-white py-10 px-4'>
+      <div className='w-full rounded-t-[26px] bg-white py-10 px-4 md:px-16'>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4 mb-6">
             {['type1', 'type2', 'type3', 'custom'].map((typeOption) => (

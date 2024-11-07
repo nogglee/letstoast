@@ -14,5 +14,12 @@
   },
   "custom": "Custom",
   "startButton": "Start",
-  "resultButton": "Result"
+  "resultButton": "Result",
+  "home-headline": {
+    "01": "People have enjoyed",
+    "02": "a total of",
+    "03": " minutes",
+    "04": "",
+    "05": "of speeches so far."
+  }
 }

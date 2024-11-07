@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { Halmet }from 'react-helaet';
+import { Halmet }from 'react-helmet';
 import Home from './pages/Home'; 
 import Timer from './pages/Timer';
 import Result from './pages/Result';

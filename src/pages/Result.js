@@ -8,47 +8,6 @@ function Result() {
   const [previousResults, setPreviousResults] = useState([]);
   const { i18n } = useTranslation();
 
-  useEffect(() => {
-    const data = localStorage.getItem('savedTime');
-    if (data) {
-      const parsed = JSON.parse(data);
-      if (Date.now() > parsed.expiration) {
-        localStorage.removeItem('savedTime');
-        navigate(`/${i18n.language}/`);
-        return;
-      }
-      setSavedData(parsed);
-      
-      const previousData = localStorage.getItem('previousResults') || '[]';
-      const parsedPreviousData = JSON.parse(previousData);
-      
-      const isDuplicate = parsedPreviousData.some(
-        item => item.stopTime === parsed.stopTime && item.name === parsed.name
-      );
-      
-      if (!isDuplicate) {
-        const updatedResults = [parsed, ...parsedPreviousData].slice(0, 10);
-        localStorage.setItem('previousResults', JSON.stringify(updatedResults));
-        setPreviousResults(updatedResults);
-      } else {
-        setPreviousResults([parsed, ...parsedPreviousData]);
-      }
-    } else {
-      navigate(`/${i18n.language}/`);
-    }
-  }, [navigate, i18n.language]);
-
-  const typeButtons = [
-    { id: 'type1', label: '타입 1' },
-    { id: 'type2', label: '타입 2' },
-    { id: 'type3', label: '타입 3' },
-    { id: 'custom', label: '커스텀' }
-  ];
-
-  const handleTypeSelect = (typeId) => {
-    console.log('Selected type:', typeId);
-  };
-
   const formatDateTime = (timestamp) => {
     if (!timestamp || isNaN(timestamp)) return '-';
     const date = new Date(Number(timestamp));
@@ -63,11 +22,39 @@ function Result() {
     return `${year}-${month}-${day} ${hours}:${minutes}`;
   };
 
+  useEffect(() => {
+    const data = localStorage.getItem('savedTime');
+    if (data) {
+      const parsed = JSON.parse(data);
+      setSavedData(parsed);
+
+      const previousData = localStorage.getItem('previousResults') || '[]';
+      const parsedPreviousData = JSON.parse(previousData);
+
+      const isDuplicate = parsedPreviousData.some(
+        item => item.stopTime === parsed.stopTime && item.name === parsed.name
+      );
+
+      if (!isDuplicate) {
+        const updatedResults = [parsed, ...parsedPreviousData].slice(0, 10);
+        localStorage.setItem('previousResults', JSON.stringify(updatedResults));
+        setPreviousResults(updatedResults);
+      } else {
+        setPreviousResults([parsed, ...parsedPreviousData]);
+      }
+    } else {
+      navigate(`/${i18n.language}/`);
+    }
+  }, [navigate, i18n.language]);
+
   if (!savedData) return null;
 
   const timeClassName = savedData.isUnderGreen || savedData.isOverRed
     ? 'text-red-500'
     : 'text-black';
+
+  console.log('Saved Data:', savedData);
+  console.log('Previous Results:', previousResults);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8">
@@ -75,23 +62,22 @@ function Result() {
       <div className="bg-white p-8 rounded-lg shadow-md w-96 mb-8">
         <div className="mb-6 text-center">
           <p className="text-xl font-semibold">
-            {savedData.name || '이름없음'} 님의 기록
+            {localStorage.getItem('savedName') || '이름없음'} 님의 기록
           </p>
           <p className="text-lg text-gray-600">
             {formatDateTime(savedData.stopTime)}
           </p>
         </div>
-        <p className="text-xl mb-4">소요 시간:</p>
         <p className={`text-4xl font-bold ${timeClassName} text-center`}>
           {savedData.time}
         </p>
         {savedData.isUnderGreen && (
-          <p className="text-red-500 mt-2">최소 시간에 미달했습니다.</p>
+          <p className="text-red-500 text-center mt-2">최소 시간에 미달했습니다.</p>
         )}
         {savedData.isOverRed && (
-          <p className="text-red-500 mt-2">최대 시간을 초과했습니다.</p>
+          <p className="text-red-500 text-center mt-2">최대 시간을 초과했습니다.</p>
         )}
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <p className="text-lg mb-3 font-semibold">타입 선택:</p>
           <div className="grid grid-cols-2 gap-3">
             {typeButtons.map((button) => (
@@ -104,7 +90,7 @@ function Result() {
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
 
       {previousResults.length > 1 && (
@@ -113,7 +99,14 @@ function Result() {
           <div className="space-y-4">
             {previousResults.slice(1).map((result, index) => (
               <div key={index} className="border-b pb-2">
-                <p className="font-semibold">{result.name || '이름없음'}</p>
+                <div className="flex justify-between items-center">
+                  <p className="font-semibold">{result.name || '이름없음'}</p>
+                  {result.type && result.type !== 'custom' && (
+                    <span className="inline-block bg-blue-200 text-blue-800 text-xs font-semibold ml-2 px-2.5 py-0.5 rounded">
+                      {i18n.t(`type.${result.type}`)}
+                    </span>
+                  )}
+                </div>
                 <div className="flex justify-between text-sm text-gray-600">
                   <span>소요 시간: {result.time}</span>
                   <span>{formatDateTime(result.stopTime)}</span>

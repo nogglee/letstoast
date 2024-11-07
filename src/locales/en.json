@@ -6,9 +6,12 @@
   "typeLabel": "Select Type",
   "namePlaceholder": "Enter your name",
   "selectType": "Select a type",
-  "type1": "Meeting Speaker",
-  "type2": "Table Topic Speaker",
-  "type3": "General Evaluator",
+  "type": {
+    "type1": "Meeting Speaker",
+    "type2": "Table Topic Speaker",
+    "type3": "General Evaluator",
+    "custom": "Custom"
+  },
   "custom": "Custom",
   "startButton": "Start",
   "resultButton": "Result"

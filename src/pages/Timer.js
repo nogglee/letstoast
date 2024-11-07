@@ -70,26 +70,32 @@ function Timer() {
     const isUnderGreen = minutes < minTime;
     const isOverRed = minutes >= maxTime && seconds > 30;
 
+    const savedType = localStorage.getItem('savedType');
+
     localStorage.setItem('savedTime', JSON.stringify({ 
       time: currentTime, 
       expiration: expirationTime,
       isUnderGreen,
       isOverRed,
       name,
-      stopTime
+      stopTime,
+      type: savedType
     }));
     
     navigate(`/${i18n.language}/result`);
   };
 
+  const handleTypeSelect = (selectedType) => {
+    navigate(`/${i18n.language}/timer?name=${name}&type=${selectedType}`);
+  };
+
   return (
     <div className={`timer-page ${stage} text-white flex flex-col items-center justify-center h-screen`}>
       <h2 className="text-2xl font-bold">Timer for {name}</h2>
-      <p className="text-lg mb-4">{i18n.t(`type.${type}`)}</p>
+      <p className="text-lg mb-4">{i18n.t(`type.${type}`) || i18n.t(`type.default`)}</p>
       <h1 className="text-6xl font-bold">
         {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
       </h1>
-      <p className="text-xl mt-4">Stage: {stage}</p>
 
       <div className="flex space-x-4 mt-8">
         <button

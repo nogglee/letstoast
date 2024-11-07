@@ -5,17 +5,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script>
-    // 최초 접속시에만 언어 감지하여 리다이렉트
-    if (!sessionStorage.getItem('initialRedirect')) {
-      const userLang = navigator.language || navigator.userLanguage;
-      const redirectPath = userLang.startsWith('ko') ? '/ko' : '/en';
-      sessionStorage.setItem('initialRedirect', 'true');
-      window.location.replace(redirectPath);
-    }
+    // 항상 브라우저 언어 설정에 따라 리다이렉트
+    const userLang = navigator.language || navigator.userLanguage;
+    const redirectPath = userLang.startsWith('ko') ? '/ko' : '/en';
+    window.location.replace(redirectPath);
   </script>
-  </head>
-  
-  <body>
+</head>
+
+<body>
   <div id="root"></div>
   <noscript>
     <meta http-equiv="refresh" content="0;url=/en">

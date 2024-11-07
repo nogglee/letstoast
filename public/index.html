@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <meta name="theme-color" content="#000000" />
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>
+    // 최초 접속시에만 언어 감지하여 리다이렉트
+    if (!sessionStorage.getItem('initialRedirect')) {
+      const userLang = navigator.language || navigator.userLanguage;
+      const redirectPath = userLang.startsWith('ko') ? '/ko' : '/en';
+      sessionStorage.setItem('initialRedirect', 'true');
+      window.location.replace(redirectPath);
+    }
+  </script>
   </head>
+  
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+  <div id="root"></div>
+  <noscript>
+    <meta http-equiv="refresh" content="0;url=/en">
+  </noscript>
+</body>
 </html>

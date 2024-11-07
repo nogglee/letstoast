@@ -1,6 +1,7 @@
 {
   "routes": [
-    { "src": "/build/static/(.*)", "dest": "/build/static/$1" },
+    { "src": "/static/css/(.*)", "dest": "/build/static/css/$1" },
+    { "src": "/static/js/(.*)", "dest": "/build/static/js/$1" },
     { "src": "/assets/(.*)", "dest": "/build/assets/$1" },
     { "src": "/ko(/.*)?$", "dest": "/index.ko.html" },
     { "src": "/en(/.*)?$", "dest": "/index.en.html" },

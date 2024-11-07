@@ -21,12 +21,14 @@ function Timer() {
 
   const typeSettings = {
     type1: [5, 6, 7, 7.5],
-    type2: [1, 1.3, 2, 2.5],
+    type2: [1, 1.5, 2, 2.5],
     type3: [2, 2.5, 3, 3.5],
     custom: [customGreen || 5, customYellow || 6, customRed || 7, customRed + 1 || 8]
   };
 
   const [minTime, midTime, expireTime, maxTime] = typeSettings[type] || [5, 6, 7, 8];
+
+  const totalMinutes = minutes + seconds / 60;
 
   useEffect(() => {
     if (isPaused) return;
@@ -42,13 +44,13 @@ function Timer() {
       });
     }, 1000);
 
-    if (minutes < minTime) {
+    if (totalMinutes < minTime) {
       setStage('bg-gray-500');
-    } else if (minutes >= minTime && minutes < midTime) {
+    } else if (totalMinutes >= minTime && totalMinutes < midTime) {
       setStage('bg-green-500');
-    } else if (minutes >= midTime && minutes < expireTime) {
+    } else if (totalMinutes >= midTime && totalMinutes < expireTime) {
       setStage('bg-yellow-500');
-    } else if (minutes >= expireTime && minutes < maxTime) {
+    } else if (totalMinutes >= expireTime && totalMinutes < maxTime) {
       setStage('bg-red-500');
     } else {
       setStage('bg-red-500 animate-blink');
@@ -83,7 +85,7 @@ function Timer() {
   return (
     <div className={`timer-page ${stage} text-white flex flex-col items-center justify-center h-screen`}>
       <h2 className="text-2xl font-bold">Timer for {name}</h2>
-      <p className="text-lg mb-4">Type: {type}</p>
+      <p className="text-lg mb-4">{i18n.t(`type.${type}`)}</p>
       <h1 className="text-6xl font-bold">
         {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
       </h1>

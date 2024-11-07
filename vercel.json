@@ -1,10 +1,10 @@
 {
   "routes": [
-    { "handle": "filesystem" },
-    { "src": "/static/(.*)", "dest": "/static/$1" },
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
+    { "src": "/static/(.*)", "dest": "/build/static/$1" },
+    { "src": "/assets/(.*)", "dest": "/build/assets/$1" },
     { "src": "/ko(/.*)?$", "dest": "/index.ko.html" },
     { "src": "/en(/.*)?$", "dest": "/index.en.html" },
     { "src": "/(.*)", "dest": "/index.html" }
-  ]
+  ],
+  "buildCommand": "npm run build"
 }

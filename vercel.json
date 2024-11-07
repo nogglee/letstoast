@@ -1,7 +1,7 @@
 {
   "routes": [
-    { "src": "/ko", "dest": "/index.ko.html" },
-    { "src": "/en", "dest": "/index.en.html" },
+    { "src": "/ko/(.*)", "dest": "/index.ko.html" },
+    { "src": "/en/(.*)", "dest": "/index.en.html" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }

@@ -1,5 +1,6 @@
 {
-  "title": "Let's Toast!",
+  "title": "렛츠토스트",
+  "description": "타이머에게 시간을 맞기고 연설을 즐겨보세요",
   "welcomeMessage": "한국어버전",
   "nameLabel": "이름",
   "typeLabel": "타입 선택",

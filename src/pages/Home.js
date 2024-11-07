@@ -45,99 +45,117 @@ function Home() {
   };
 
   return (
-    <div className="container h-screen flex flex-col items-center">
+    <div className="container min-h-screen flex flex-col items-center bg-blue-500">
       <Header />
-      <h2 className="text-2xl font-bold mb-8 text-center">{t('title')}</h2>
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="grid grid-cols-2 gap-4 mb-6">
-          {['type1', 'type2', 'type3', 'custom'].map((typeOption) => (
-            <button
-              key={typeOption}
-              type="button"
-              onClick={() => handleTypeSelect(typeOption)}
-              className={`p-4 rounded-lg text-center transition-colors duration-200
-                ${type === typeOption 
-                  ? 'bg-blue-500 text-white' 
-                  : 'bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50'
-                }`}
-            >
-              {t(`type.${typeOption}`)}
-            </button>
-          ))}
+      <div className='flex flex-col gap-5 w-full px-4'>
+        <div className='flex flex-col text-white w-full py-5'>
+          <div className='font-body font-300 text-2xl'>자유로운 연설이</div>
+          <div className='flex flex-row gap-1'>
+            <div className='font-body font-500 text-2xl'>총 nnn분</div>
+            <div className='font-body font-300 text-2xl'>동안</div>
+          </div>
+          <div className='font-body font-300 text-2xl'>발표 되었어요.</div>
+          <h1 className='font-title font-700 text-3xl'>Let's Toast!</h1>
         </div>
-
-        <div className="space-y-2">
-          <label className="block text-gray-700">
-            {t('nameLabel')}:
-            <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder={t('namePlaceholder')}
-              disabled={isNameDisabled}
-              className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm
-                ${isNameDisabled 
-                  ? 'bg-gray-100 cursor-not-allowed' 
-                  : 'focus:border-blue-500 focus:ring-blue-500'
-                }`}
-            />
-          </label>
+        <div className='flex flex-col w-full py-5 gap-2.5'>
+          <div className='flex flex-row gap-2.5'>
+            <div className='flex-1 bg-blue-100 rounded-lg'></div>
+            <div className='w-20 h-20 bg-blue-600 rounded-lg'></div>
+          </div>
+          <div className='w-full h-20 bg-blue-700 rounded-lg'></div>
         </div>
+      </div>
+      <div className='w-full rounded-t-[26px] bg-white py-10 px-4'>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid grid-cols-2 gap-4 mb-6">
+            {['type1', 'type2', 'type3', 'custom'].map((typeOption) => (
+              <button
+                key={typeOption}
+                type="button"
+                onClick={() => handleTypeSelect(typeOption)}
+                className={`p-4 rounded-lg text-center transition-colors duration-200
+                  ${type === typeOption 
+                    ? 'bg-blue-500 text-white' 
+                    : 'bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50'
+                  }`}
+              >
+                {t(`type.${typeOption}`)}
+              </button>
+            ))}
+          </div>
 
-        {type === 'custom' && (
-          <div>
-            <label>
-              Green Time:
+          <div className="space-y-2">
+            <label className="block text-gray-700">
+              {t('nameLabel')}:
               <input
-                type="number"
-                value={customTimes.green}
-                onChange={(e) => handleCustomTimeChange('green', e.target.value)}
-                placeholder="분 단위로 입력"
-              />
-            </label>
-            <label>
-              Yellow Time:
-              <input
-                type="number"
-                value={customTimes.yellow}
-                onChange={(e) => handleCustomTimeChange('yellow', e.target.value)}
-                placeholder="분 단위로 입력"
-              />
-            </label>
-            <label>
-              Red Time:
-              <input
-                type="number"
-                value={customTimes.red}
-                onChange={(e) => handleCustomTimeChange('red', e.target.value)}
-                placeholder="분 단위로 입력"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder={t('namePlaceholder')}
+                disabled={isNameDisabled}
+                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm
+                  ${isNameDisabled 
+                    ? 'bg-gray-100 cursor-not-allowed' 
+                    : 'focus:border-blue-500 focus:ring-blue-500'
+                  }`}
               />
             </label>
           </div>
-        )}
 
-        <div className="flex gap-4 justify-center mt-8">
-          <button
-            type="submit"
-            disabled={!name || !type}
-            className={`px-6 py-2 rounded-lg font-medium
-              ${(!name || !type)
-                ? 'bg-gray-300 cursor-not-allowed'
-                : 'bg-blue-500 text-white hover:bg-blue-600'
-              }`}
-          >
-            {t('startButton')}
-          </button>
-          <button
-            type="button"
-            onClick={() => navigate(`/${i18n.language}/result`)}
-            className="px-6 py-2 rounded-lg font-medium bg-gray-500 text-white hover:bg-gray-600"
-          >
-            {t('resultButton')}
-          </button>
-        </div>
-      </form>
+          {type === 'custom' && (
+            <div>
+              <label>
+                Green Time:
+                <input
+                  type="number"
+                  value={customTimes.green}
+                  onChange={(e) => handleCustomTimeChange('green', e.target.value)}
+                  placeholder="분 단위로 입력"
+                />
+              </label>
+              <label>
+                Yellow Time:
+                <input
+                  type="number"
+                  value={customTimes.yellow}
+                  onChange={(e) => handleCustomTimeChange('yellow', e.target.value)}
+                  placeholder="분 단위로 입력"
+                />
+              </label>
+              <label>
+                Red Time:
+                <input
+                  type="number"
+                  value={customTimes.red}
+                  onChange={(e) => handleCustomTimeChange('red', e.target.value)}
+                  placeholder="분 단위로 입력"
+                />
+              </label>
+            </div>
+          )}
+
+          <div className="flex gap-4 justify-center mt-8">
+            <button
+              type="submit"
+              disabled={!name || !type}
+              className={`px-6 py-2 rounded-lg font-medium
+                ${(!name || !type)
+                  ? 'bg-gray-300 cursor-not-allowed'
+                  : 'bg-blue-500 text-white hover:bg-blue-600'
+                }`}
+            >
+              {t('startButton')}
+            </button>
+            <button
+              type="button"
+              onClick={() => navigate(`/${i18n.language}/result`)}
+              className="px-6 py-2 rounded-lg font-medium bg-gray-500 text-white hover:bg-gray-600"
+            >
+              {t('resultButton')}
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

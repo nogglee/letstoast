@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import KoreanFlag from '../assets/ico-flag-ko.svg'; // 한국 국기 SVG 경로
@@ -18,6 +18,10 @@ function LanguageSelector() {
     navigate(newPath);
     setIsKorean(lang === 'ko');
   };
+
+  useEffect(() => {
+    setIsKorean(i18n.language === 'ko');
+  }, [i18n.language]);
 
   return (
     <div className="flex gap-4">

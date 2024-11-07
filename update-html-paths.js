@@ -5,8 +5,8 @@ const buildDir = path.resolve(__dirname, 'build');
 const cssFiles = fs.readdirSync(path.join(buildDir, 'static', 'css')).filter(file => file.startsWith('main') && file.endsWith('.css'));
 const jsFiles = fs.readdirSync(path.join(buildDir, 'static', 'js')).filter(file => file.startsWith('main') && file.endsWith('.js'));
 
-console.log('CSS Files:', cssFiles); // 디버깅용
-console.log('JS Files:', jsFiles);   // 디버깅용
+console.log('CSS Files:', cssFiles);
+console.log('JS Files:', jsFiles);
 
 if (!cssFiles.length || !jsFiles.length) {
   console.error("Error: CSS or JS files not found. Please check the build directory structure.");
@@ -16,8 +16,8 @@ if (!cssFiles.length || !jsFiles.length) {
 const cssFile = cssFiles[0];
 const jsFile = jsFiles[0];
 
-console.log('Selected CSS File:', cssFile); // 디버깅용
-console.log('Selected JS File:', jsFile);   // 디버깅용
+console.log('Selected CSS File:', cssFile);
+console.log('Selected JS File:', jsFile);
 
 const htmlFiles = [
   path.resolve(buildDir, 'index.html'),

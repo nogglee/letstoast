@@ -77,7 +77,8 @@ function Result() {
         {savedData.isOverRed && (
           <p className="text-red-500 text-center mt-2">최대 시간을 초과했습니다.</p>
         )}
-        {/* <div className="mt-8">
+        {/* 재시작 할 수 있는 버튼 만들기
+        <div className="mt-8">
           <p className="text-lg mb-3 font-semibold">타입 선택:</p>
           <div className="grid grid-cols-2 gap-3">
             {typeButtons.map((button) => (

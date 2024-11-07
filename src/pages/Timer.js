@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function Timer() {
   const location = useLocation();
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
   const queryParams = new URLSearchParams(location.search);
   const name = queryParams.get('name');
   const type = queryParams.get('type');
@@ -67,7 +69,7 @@ function Timer() {
       stopTime
     }));
     
-    navigate('/result');
+    navigate(`/${i18n.language}/result`);
   };
 
   return (

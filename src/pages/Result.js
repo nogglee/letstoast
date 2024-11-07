@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function Result() {
   const navigate = useNavigate();
   const [savedData, setSavedData] = useState(null);
   const [previousResults, setPreviousResults] = useState([]);
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     const data = localStorage.getItem('savedTime');
@@ -12,7 +14,7 @@ function Result() {
       const parsed = JSON.parse(data);
       if (Date.now() > parsed.expiration) {
         localStorage.removeItem('savedTime');
-        navigate('/');
+        navigate(`/${i18n.language}/`);
         return;
       }
       setSavedData(parsed);
@@ -32,9 +34,9 @@ function Result() {
         setPreviousResults([parsed, ...parsedPreviousData]);
       }
     } else {
-      navigate('/');
+      navigate(`/${i18n.language}/`);
     }
-  }, [navigate]);
+  }, [navigate, i18n.language]);
 
   const typeButtons = [
     { id: 'type1', label: '타입 1' },
@@ -123,7 +125,7 @@ function Result() {
       )}
 
       <button
-        onClick={() => navigate('/')}
+        onClick={() => navigate(`/${i18n.language}`)}
         className="mt-8 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
       >
         처음으로 돌아가기

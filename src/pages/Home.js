@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 function Home() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
 
   const [name, setName] = useState('');
@@ -19,7 +19,7 @@ function Home() {
         type,
         ...customTimes, // 커스텀 시간 포함
       });
-      navigate(`/timer?${queryParams.toString()}`);
+      navigate(`/${i18n.language}/timer?${queryParams.toString()}`);
     } else {
       alert('이름과 타입을 선택해주세요');
     }
@@ -123,7 +123,7 @@ function Home() {
           </button>
           <button
             type="button"
-            onClick={() => navigate('/result')}
+            onClick={() => navigate(`/${i18n.language}/result`)}
             className="px-6 py-2 rounded-lg font-medium bg-gray-500 text-white hover:bg-gray-600"
           >
             {t('resultButton')}

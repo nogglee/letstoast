@@ -1,0 +1,25 @@
+.timer-section {
+  @apply flex flex-col w-full pl-4 md:pl-16 py-5 bg-white gap-5
+}
+
+.timer-list {
+  @apply flex flex-row gap-2 overflow-x-auto flex-nowrap
+}
+
+.timer-item {
+  @apply flex flex-col p-4 rounded-lg w-[210px] h-[140px] shrink-0
+}
+
+.timer-item .title {
+  @apply font-600 text-xl text-white
+}
+
+.timer-item .des {
+  @apply font-500 text-xs text-white
+}
+
+#view-rules {
+  @apply flex flex-row font-400 text-xs text-white px-2 py-1 gap-1 rounded-md;
+  background-color: rgb(255, 255, 255, 0.3);
+  width: max-content;
+}

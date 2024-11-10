@@ -6,12 +6,6 @@
   "typeLabel": "Select Type",
   "namePlaceholder": "Enter your name",
   "selectType": "Select a type",
-  "type": {
-    "type1": "Meeting Speaker",
-    "type2": "Table Topic Speaker",
-    "type3": "General Evaluator",
-    "custom": "Custom"
-  },
   "custom": "Custom",
   "startButton": "Start",
   "resultButton": "Result",
@@ -28,5 +22,21 @@
     "02-1": "",
     "03": "Don't have a timer that works for you?",
     "03-1": "Customize your timer"
+  },
+  "clickFindLocation": "Club Finder is coming soon!",
+  "timerList": {
+    "title": {
+      "00": "What timer do you need?",
+      "01": "Meeting Speaker",
+      "02": "Table Topic Speaker",
+      "03": "General Evaluator",
+      "04": "Custom Timer"
+    },
+    "description": {
+      "01": "준비한 연설을 시작해요",
+      "02": "오늘의 즉흥 주제는?!",
+      "03": "기대되는 평가의 시간",
+      "04": "내맘대로 커스텀하는!"
+    }
   }
 }

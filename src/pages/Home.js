@@ -9,6 +9,7 @@ import { ReactComponent as ArrowRightIcon } from '../assets/ico-arrow-right.svg'
 import { useToast } from '../hooks/useToast';
 import TodayResults from '../components/TodayResults';
 import Modal from '../components/Modal';
+import TimerList from '../components/TimerList';
 
 function Home() {
   const { t, i18n } = useTranslation();
@@ -110,7 +111,9 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className='w-full rounded-t-[26px] bg-white py-10 px-4 md:px-16'>
+      <div className='w-full rounded-t-[26px] bg-gray-100 overflow-hidden gap-3'>
+        <TimerList />
+        {/* 하위 페이지  편집 및 삭제필요 */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4 mb-6">
             {['type1', 'type2', 'type3', 'custom'].map((typeOption) => (

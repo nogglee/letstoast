@@ -5,6 +5,7 @@ import './App.css';
 import Home from './pages/Home'; 
 import Timer from './pages/Timer';
 import Result from './pages/Result';
+import { ToastProvider } from './context/ToastContext';
 
 function App() {
   const { i18n } = useTranslation();
@@ -19,13 +20,15 @@ function App() {
 
   return (
     <Router>
-      <div className="flex justify-center min-h-screen">
-        <Routes>
-          <Route path="/:lang" element={<Home />} />
-          <Route path="/:lang/timer" element={<Timer />} />
-          <Route path="/:lang/result" element={<Result />} />
-        </Routes>
-      </div>
+      <ToastProvider>
+        <div className="flex justify-center min-h-screen">
+          <Routes>
+            <Route path="/:lang" element={<Home />} />
+            <Route path="/:lang/timer" element={<Timer />} />
+            <Route path="/:lang/result" element={<Result />} />
+          </Routes>
+        </div>
+      </ToastProvider>
     </Router>
   );
 }

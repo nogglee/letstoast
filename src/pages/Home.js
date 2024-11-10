@@ -2,10 +2,16 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Header from '../components/Header';
+import { ReactComponent as BookIcon } from '../assets/ico-book.svg';
+import { ReactComponent as MapIcon } from '../assets/ico-map.svg';
+import { ReactComponent as StarIcon } from '../assets/ico-star.svg';
+import { ReactComponent as ArrowRightIcon } from '../assets/ico-arrow-right.svg';
+import { useToast } from '../hooks/useToast';
 
 function Home() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const { addToast } = useToast();
 
   const [name, setName] = useState('');
   const [type, setType] = useState('');
@@ -44,6 +50,12 @@ function Home() {
     setIsNameDisabled(false);
   };
 
+  const handleFindLocationClick = () => {
+    console.log("Find Location Clicked");
+    addToast(t('clickFindLocation'));
+    console.log("addToast called");
+  };
+
   return (
     <div className="container min-h-screen flex flex-col items-center bg-blue-500">
       <Header />
@@ -59,10 +71,27 @@ function Home() {
         </div>
         <div className='flex flex-col w-full py-5 gap-2.5'>
           <div className='flex flex-row gap-2.5'>
-            <div className='flex-1 md:flex-0 md:w-1/2 bg-blue-100 rounded-lg'></div>
-            <div className='w-20 h-20 md:flex-0 md:w-1/2 bg-blue-600 rounded-lg'></div>
+            <div className='w-20 h-20 md:flex-0 md:w-1/2 bg-blue-600 rounded-lg flex flex-col gap-1 justify-center items-center p-2 md:flex-row md:justify-start md:py-3 md:px-5 md:gap-5 cursor-pointer' onClick={handleFindLocationClick}>
+              <div><MapIcon /></div>
+              <div className='font-500 text-body text-center text-xs text-white md:text-lg md:font-400'>{t('home-menu.01')}</div>
+            </div>
+            <div className='flex-1 md:flex-0 md:w-1/2 bg-blue-100 rounded-lg flex flex-row items-center px-5 py-3 cursor-pointer'>
+              <div><BookIcon /></div>
+              <div className='w-full pl-5'>
+                <div className='font-700 text-body text-sm text-black'>{t('home-menu.02')}</div>
+                <div className='font-800 text-body text-2xl text-blue-500'>N{t('home-menu.02-1')}</div>
+              </div>
+              <div><ArrowRightIcon style={{ color: '#7185FA' }}/></div>
+            </div>
           </div>
-          <div className='w-full h-20 bg-blue-700 rounded-lg'></div>
+          <div className='w-full h-20 bg-blue-700 rounded-lg flex flex-row items-center px-5 py-3 cursor-pointer'>
+            <div><StarIcon /></div>
+            <div className='w-full pl-5'>
+              <div className='font-700 text-body text-sm text-white'>{t('home-menu.03')}</div>
+              <div className='font-200 text-body text-sm text-white'>{t('home-menu.03-1')}</div>
+            </div>
+            <div><ArrowRightIcon style={{ color: '#ffffff' }}/></div>
+          </div>
         </div>
       </div>
       <div className='w-full rounded-t-[26px] bg-white py-10 px-4 md:px-16'>

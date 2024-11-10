@@ -21,5 +21,12 @@
     "03": " minutes",
     "04": "",
     "05": "of speeches so far."
+  },
+  "home-menu": {
+    "01": "Find a club",
+    "02": "Record of the Day",
+    "02-1": "",
+    "03": "Don't have a timer that works for you?",
+    "03-1": "Customize your timer"
   }
 }

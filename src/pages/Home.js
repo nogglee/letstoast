@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Header from '../components/Header';
@@ -7,6 +7,8 @@ import { ReactComponent as MapIcon } from '../assets/ico-map.svg';
 import { ReactComponent as StarIcon } from '../assets/ico-star.svg';
 import { ReactComponent as ArrowRightIcon } from '../assets/ico-arrow-right.svg';
 import { useToast } from '../hooks/useToast';
+import TodayResults from '../components/TodayResults';
+import Modal from '../components/Modal';
 
 function Home() {
   const { t, i18n } = useTranslation();
@@ -17,6 +19,9 @@ function Home() {
   const [type, setType] = useState('');
   const [customTimes, setCustomTimes] = useState({ green: 0, yellow: 0, red: 0 }); // 커스텀 시간
   const [isNameDisabled, setIsNameDisabled] = useState(true);
+  const [previousResultsCount, setPreviousResultsCount] = useState(0); // 오늘의 기록 개수 상태 추가
+  const [previousResults, setPreviousResults] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -51,10 +56,21 @@ function Home() {
   };
 
   const handleFindLocationClick = () => {
-    console.log("Find Location Clicked");
     addToast(t('clickFindLocation'));
-    console.log("addToast called");
   };
+
+  const handleShowPreviousResults = () => {
+    const previousData = localStorage.getItem('previousResults') || '[]';
+    const parsedPreviousData = JSON.parse(previousData);
+    setPreviousResults(parsedPreviousData);
+    setIsModalOpen(true); // 모달 열기
+  };
+
+  useEffect(() => {
+    const previousData = localStorage.getItem('previousResults') || '[]';
+    const parsedPreviousData = JSON.parse(previousData);
+    setPreviousResultsCount(parsedPreviousData.length); // 이전 결과 개수 설정
+  }, []);
 
   return (
     <div className="container min-h-screen flex flex-col items-center bg-blue-500">
@@ -75,11 +91,11 @@ function Home() {
               <div><MapIcon /></div>
               <div className='font-500 text-body text-center text-xs text-white md:text-lg md:font-400'>{t('home-menu.01')}</div>
             </div>
-            <div className='flex-1 md:flex-0 md:w-1/2 bg-blue-100 rounded-lg flex flex-row items-center px-5 py-3 cursor-pointer'>
+            <div className='flex-1 md:flex-0 md:w-1/2 bg-blue-100 rounded-lg flex flex-row items-center px-5 py-3 cursor-pointer' onClick={handleShowPreviousResults}>
               <div><BookIcon /></div>
               <div className='w-full pl-5'>
                 <div className='font-700 text-body text-sm text-black'>{t('home-menu.02')}</div>
-                <div className='font-800 text-body text-2xl text-blue-500'>N{t('home-menu.02-1')}</div>
+                <div className='font-800 text-body text-2xl text-blue-500'>{previousResultsCount}{t('home-menu.02-1')}</div>
               </div>
               <div><ArrowRightIcon style={{ color: '#7185FA' }}/></div>
             </div>
@@ -185,6 +201,12 @@ function Home() {
           </div>
         </form>
       </div>
+
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+        Content={<TodayResults previousResults={previousResults} />}
+      />
     </div>
   );
 }

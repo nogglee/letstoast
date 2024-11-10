@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import TodayResults from '../components/TodayResults';
 
 function Result() {
   const navigate = useNavigate();
@@ -57,7 +58,7 @@ function Result() {
   console.log('Previous Results:', previousResults);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8">
+    <div className="flex flex-col items-center justify-center min-h-screen w-full bg-gray-100 py-8">
       <h1 className="text-3xl font-bold mb-8">결과</h1>
       <div className="bg-white p-8 rounded-lg shadow-md w-96 mb-8">
         <div className="mb-6 text-center">
@@ -94,29 +95,7 @@ function Result() {
         </div> */}
       </div>
 
-      {previousResults.length > 1 && (
-        <div className="bg-white p-8 rounded-lg shadow-md w-96">
-          <h2 className="text-xl font-bold mb-4">오늘의 기록</h2>
-          <div className="space-y-4">
-            {previousResults.slice(1).map((result, index) => (
-              <div key={index} className="border-b pb-2">
-                <div className="flex justify-between items-center">
-                  <p className="font-semibold">{result.name || '이름없음'}</p>
-                  {result.type && result.type !== 'custom' && (
-                    <span className="inline-block bg-blue-200 text-blue-800 text-xs font-semibold ml-2 px-2.5 py-0.5 rounded">
-                      {i18n.t(`type.${result.type}`)}
-                    </span>
-                  )}
-                </div>
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>소요 시간: {result.time}</span>
-                  <span>{formatDateTime(result.stopTime)}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {previousResults.length > 0 && <TodayResults previousResults={previousResults} />}
 
       <button
         onClick={() => navigate(`/${i18n.language}`)}

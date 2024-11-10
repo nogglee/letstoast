@@ -45,7 +45,7 @@ function Timer() {
     }, 1000);
 
     if (totalMinutes < minTime) {
-      setStage('bg-gray-500');
+      setStage('bg-gray-300');
     } else if (totalMinutes >= minTime && totalMinutes < midTime) {
       setStage('bg-green-500');
     } else if (totalMinutes >= midTime && totalMinutes < expireTime) {
@@ -90,7 +90,7 @@ function Timer() {
   };
 
   return (
-    <div className={`timer-page ${stage} text-white flex flex-col items-center justify-center h-screen`}>
+    <div className={`timer-page ${stage} text-white flex flex-col w-full items-center justify-center h-screen`}>
       <h2 className="text-2xl font-bold">Timer for {name}</h2>
       <p className="text-lg mb-4">{i18n.t(`type.${type}`) || i18n.t(`type.default`)}</p>
       <h1 className="text-6xl font-bold">

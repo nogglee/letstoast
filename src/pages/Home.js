@@ -10,6 +10,8 @@ import { useToast } from '../hooks/useToast';
 import TodayResults from '../components/TodayResults';
 import Modal from '../components/Modal';
 import TimerList from '../components/TimerList';
+import FAQList from '../components/FAQList';
+import '../components/FlipCard.css';
 
 function Home() {
   const { t, i18n } = useTranslation();
@@ -57,7 +59,7 @@ function Home() {
   };
 
   const handleFindLocationClick = () => {
-    addToast(t('clickFindLocation'));
+    addToast(t('toast.clickFindLocation'));
   };
 
   const handleShowPreviousResults = () => {
@@ -111,8 +113,9 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className='w-full rounded-t-[26px] bg-gray-100 overflow-hidden gap-3'>
+      <div className='flex flex-col w-full rounded-t-[26px] bg-gray-100 overflow-hidden gap-3'>
         <TimerList />
+        <FAQList />
         {/* 하위 페이지  편집 및 삭제필요 */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-2 gap-4 mb-6">

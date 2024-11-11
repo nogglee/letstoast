@@ -1,5 +1,5 @@
 .timer-section {
-  @apply flex flex-col w-full pl-4 md:pl-16 py-5 bg-white gap-5
+  @apply flex flex-col w-full pl-4 md:pl-16 py-5 bg-gray-50 gap-5
 }
 
 .timer-list {

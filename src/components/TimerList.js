@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ReactComponent as InfoIcon } from '../assets/ico-info.svg'
+import { useToast } from '../hooks/useToast';
 import bookImage from '../assets/img-book.png';
 import bulbImage from '../assets/img-bulb.png';
 import penImage from '../assets/img-pen.png';
@@ -10,6 +11,7 @@ import './TimerList.css'
 
 const TimerList = () => {
   const { t, i18n } = useTranslation();
+  const { addToast } = useToast();
   const navigate = useNavigate();
 
   const timers = [
@@ -31,6 +33,10 @@ const TimerList = () => {
     });
   };
 
+  const handleViewRules = () => {
+    addToast(t('toast.clickViewRules'));
+  };
+
   return (
     <div className='timer-section'>
       <h2 className='text-base md:text-xl font-600'>{t('timerList.title.00')}</h2>
@@ -48,7 +54,16 @@ const TimerList = () => {
                 alt={timer.title}
               />
             </div>
-            <button id='view-rules'><InfoIcon className='md:w-5 md:h-5'/>규칙 보기</button>
+            <button 
+              id='view-rules' 
+              onClick={(e) => {
+                e.stopPropagation();  // 이벤트 전파 중지
+                handleViewRules();
+              }}
+            >
+              <InfoIcon className='md:w-5 md:h-5' />
+              규칙 보기
+            </button>
           </div>
         ))}
       </div>

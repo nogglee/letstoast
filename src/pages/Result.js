@@ -81,6 +81,7 @@ function Result() {
           </div>
         </div> */}
       </div>
+      <h2 className="text-xl font-bold mb-4">이전 기록</h2>
       <div className='flex px-4 w-full'>
         {previousResults.length > 0 && <TodayResults previousResults={previousResults} />}
       </div>

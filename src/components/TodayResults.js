@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { isSameDay, formatDateTime } from '../utils/dateUtils';
 
 const TodayResults = ({ previousResults }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // 오늘 날짜의 결과만 필터링
   const todayResults = previousResults.filter(result => {
@@ -26,7 +26,7 @@ const TodayResults = ({ previousResults }) => {
 
   return (
     <div className="bg-white p-8 rounded-lg w-full">
-      <h2 className="text-xl font-bold mb-4">이전 기록</h2>
+      <h2 className="text-xl font-bold mb-4">{t('home-menu.02')}</h2>
       <div className="space-y-4">
         {todayResults.map((result, index) => (
           <div key={index} className="border-b pb-2">

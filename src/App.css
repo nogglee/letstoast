@@ -22,3 +22,39 @@
   display: none;
 }
 
+.info-entry {
+  @apply flex flex-col items-center w-full px-4 md:px-16 py-5 max-w-[800px];
+}
+
+.info-entry-inner {
+  @apply flex flex-col items-start w-full max-w-[400px];
+}
+
+.info-entry .title {
+  @apply font-500 text-2xl mb-10 text-center;
+}
+
+.info-entry .label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.info-entry .input-field {
+  @apply flex w-full;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+
+.info-entry .confirm-button {
+  @apply flex w-full bg-blue-500 text-white border-none justify-center p-3 rounded-md text-base cursor-pointer;
+}
+
+.info-entry .home-button {
+  @apply flex w-full bg-gray-200 text-white border-none justify-center p-3 rounded-md text-base cursor-pointer mt-3;
+}
+
+.info-entry .confirm-button:hover {
+  background-color: #0056b3;
+}

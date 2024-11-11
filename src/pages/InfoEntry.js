@@ -37,45 +37,53 @@ const InfoEntryPage = () => {
 
   return (
     <div className="info-entry">
-      <h2>{timer.title}</h2>
-      <input
-        type="text"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder="이름을 입력하세요"
-      />
-      {timer.isCustom && (
-        <div className="custom-timer-settings">
-          <label>
-            Green Time:
-            <input
-              type="number"
-              value={customTimes.green}
-              onChange={(e) => setCustomTimes({ ...customTimes, green: e.target.value })}
-              placeholder="초 단위로 입력"
-            />
-          </label>
-          <label>
-            Yellow Time:
-            <input
-              type="number"
-              value={customTimes.yellow}
-              onChange={(e) => setCustomTimes({ ...customTimes, yellow: e.target.value })}
-              placeholder="초 단위로 입력"
-            />
-          </label>
-          <label>
-            Red Time:
-            <input
-              type="number"
-              value={customTimes.red}
-              onChange={(e) => setCustomTimes({ ...customTimes, red: e.target.value })}
-              placeholder="초 단위로 입력"
-            />
-          </label>
-        </div>
-      )}
-      <button onClick={handleStart}>시작하기</button>
+      <h2 className="title">연설자 이름을 입력해주세요.</h2>
+      <div className='info-entry-inner'>
+        <label className="label">이름</label>
+        <input
+          type="text"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="이름을 입력하세요"
+          className="input-field"
+        />
+        {timer.isCustom && (
+          <div className="custom-timer-settings">
+            <label>
+              Green Time:
+              <input
+                type="number"
+                value={customTimes.green}
+                onChange={(e) => setCustomTimes({ ...customTimes, green: e.target.value })}
+                placeholder="초 단위로 입력"
+                className="input-field"
+              />
+            </label>
+            <label>
+              Yellow Time:
+              <input
+                type="number"
+                value={customTimes.yellow}
+                onChange={(e) => setCustomTimes({ ...customTimes, yellow: e.target.value })}
+                placeholder="초 단위로 입력"
+                className="input-field"
+              />
+            </label>
+            <label>
+              Red Time:
+              <input
+                type="number"
+                value={customTimes.red}
+                onChange={(e) => setCustomTimes({ ...customTimes, red: e.target.value })}
+                placeholder="초 단위로 입력"
+                className="input-field"
+              />
+            </label>
+          </div>
+        )}
+        <button onClick={handleStart} className="confirm-button">확인</button>
+        <button onClick={() => navigate('/')} className="home-button">홈으로</button>
+      </div>
     </div>
   );
 };

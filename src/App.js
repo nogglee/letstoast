@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { ToastProvider } from './context/ToastContext';
 import Home from './pages/Home'; 
@@ -24,6 +24,7 @@ function App() {
       <ToastProvider>
         <div className="flex justify-center min-h-screen">
           <Routes>
+            <Route path="/" element={<Navigate to="/ko" />} />
             <Route path="/:lang" element={<Home />} />
             <Route path="/:lang/timer" element={<Timer />} />
             <Route path="/:lang/result" element={<Result />} />

@@ -3,23 +3,27 @@
 }
 
 .timer-list {
-  @apply flex flex-row gap-2 overflow-x-auto flex-nowrap
+  @apply flex flex-row gap-2 md:gap-5 overflow-x-auto flex-nowrap pr-4
 }
 
 .timer-item {
-  @apply flex flex-col p-4 rounded-lg w-[210px] h-[140px] shrink-0
+  @apply flex flex-col p-4 rounded-lg w-[210px] h-[140px] md:w-[260px] md:h-[160px] shrink-0 cursor-pointer overflow-hidden
 }
 
 .timer-item .title {
-  @apply font-600 text-xl text-white
+  @apply font-600 text-xl md:text-2xl text-white z-10 max-w-[110px] md:max-w-[140px]
 }
 
 .timer-item .des {
-  @apply font-500 text-xs text-white
+  @apply font-400 text-xs md:text-sm text-white
+  }
+  
+  .timer-item img {
+    @apply absolute right-[-61px] top-[-16px] h-[120px] md:h-[160px];
 }
 
 #view-rules {
-  @apply flex flex-row font-400 text-xs text-white px-2 py-1 gap-1 rounded-md;
+  @apply flex flex-row font-400 text-xs md:text-sm text-white px-2 py-1 gap-1 rounded-md;
   background-color: rgb(255, 255, 255, 0.3);
   width: max-content;
 }

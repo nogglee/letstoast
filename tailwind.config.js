@@ -43,4 +43,20 @@ module.exports = {
     },
   },
   plugins: [],
+  variants: {
+    scrollbar: ['rounded']
+  },
+  // 스크롤바 관련 유틸리티 클래스 추가
+  utilities: {
+    '.scrollbar-hide': {
+      /* IE and Edge */
+      '-ms-overflow-style': 'none',
+      /* Firefox */
+      'scrollbar-width': 'none',
+      /* Safari and Chrome */
+      '&::-webkit-scrollbar': {
+        display: 'none'
+      }
+    }
+  }
 };

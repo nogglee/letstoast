@@ -1,18 +1,38 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const InfoEntryPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const timer = location.state;
+  const { i18n } = useTranslation();
   
   const [name, setName] = useState('');
   const [customTimes, setCustomTimes] = useState({ green: '', yellow: '', red: '' });
 
   const handleStart = () => {
-    const timerSettings = timer.isCustom ? customTimes : timer;
-    localStorage.setItem('selectedTimer', JSON.stringify({ name, timerSettings }));
-    navigate(`/timer`);
+    const timerSettings = {
+      ...timer,
+      type: timer.id,
+      times: timer.isCustom ? {
+        green: parseInt(customTimes.green),
+        yellow: parseInt(customTimes.yellow),
+        red: parseInt(customTimes.red)
+      } : undefined
+    };
+    
+    localStorage.setItem('selectedTimer', JSON.stringify({
+      name,
+      ...timerSettings
+    }));
+    
+    const queryParams = new URLSearchParams({
+      name,
+      type: timer.id
+    });
+    
+    navigate(`/${i18n.language}/timer?${queryParams.toString()}`);
   };
 
   return (

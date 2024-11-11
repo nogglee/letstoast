@@ -2,26 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import TodayResults from '../components/TodayResults';
+import { formatDateTime } from '../utils/dateUtils';
 
 function Result() {
   const navigate = useNavigate();
   const [savedData, setSavedData] = useState(null);
   const [previousResults, setPreviousResults] = useState([]);
   const { i18n } = useTranslation();
-
-  const formatDateTime = (timestamp) => {
-    if (!timestamp || isNaN(timestamp)) return '-';
-    const date = new Date(Number(timestamp));
-    if (isNaN(date.getTime())) return '-';
-    
-    const year = date.getFullYear().toString().slice(2);
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    
-    return `${year}-${month}-${day} ${hours}:${minutes}`;
-  };
 
   useEffect(() => {
     const data = localStorage.getItem('savedTime');
@@ -94,9 +81,9 @@ function Result() {
           </div>
         </div> */}
       </div>
-
-      {previousResults.length > 0 && <TodayResults previousResults={previousResults} />}
-
+      <div className='flex px-4 w-full'>
+        {previousResults.length > 0 && <TodayResults previousResults={previousResults} />}
+      </div>
       <button
         onClick={() => navigate(`/${i18n.language}`)}
         className="mt-8 px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600"

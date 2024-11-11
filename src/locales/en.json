@@ -6,6 +6,12 @@
   "typeLabel": "Select Type",
   "namePlaceholder": "Enter your name",
   "selectType": "Select a type",
+  "type": {
+    "type1": "Meeting Speaker",
+    "type2": "Table Topic Speaker",
+    "type3": "General Evaluator",
+    "custom": "Custom Timer"
+  },
   "custom": "Custom",
   "startButton": "Start",
   "resultButton": "Result",
@@ -39,21 +45,25 @@
     }
   },
   "faq": {
-    "title": "Frequently Asked Questions",
+    "title": "What is Toastmasters?",
     "items": {
       "01": {
+        "type": "FAQ",
         "question": "What is Toastmaster?",
         "answer": "Toastmasters is a nonprofit organization that started in the United States and meets around the world to build public speaking and leadership skills. They welcome anyone who wants to improve their speaking and leadership skills and have meetings in 148 countries around the world."
       },
       "02": {
+        "type": "FAQ",
         "question": "How do the meetups work?",
         "answer": "The first part of the meeting consists of prepared speeches by Toastmasters members, and the second part consists of an impromptu speech session and a total evaluation. Prepared speeches are only available to registered members."
       },
       "03": {
+        "type": "FAQ",
         "question": "Do you give me a topic for my speech?",
         "answer": "The topic of your speech is usually up to you, but you will base your speech on the project objectives based on the manual provided by Toastmasters International."
       },
       "04": {
+        "type": "FAQ",
         "question": "Does the first day involve an impromptu speech as an introduction?",
         "answer": "Impromptu speeches are answering questions from the facilitator, and for first-time visitors, we ask for a brief 30-second introduction at the beginning of the meeting."
       }

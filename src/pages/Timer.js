@@ -70,8 +70,6 @@ function Timer() {
     const isUnderGreen = minutes < minTime;
     const isOverRed = minutes >= maxTime && seconds > 30;
 
-    const savedType = localStorage.getItem('savedType');
-
     localStorage.setItem('savedTime', JSON.stringify({ 
       time: currentTime, 
       expiration: expirationTime,
@@ -79,7 +77,7 @@ function Timer() {
       isOverRed,
       name,
       stopTime,
-      type: savedType
+      type
     }));
     
     navigate(`/${i18n.language}/result`);

@@ -12,6 +12,7 @@ import Modal from '../components/Modal';
 import TimerList from '../components/TimerList';
 import FAQList from '../components/FAQList';
 import '../components/FlipCard.css';
+import { isSameDay } from '../utils/dateUtils';
 
 function Home() {
   const { t, i18n } = useTranslation();
@@ -66,13 +67,17 @@ function Home() {
     const previousData = localStorage.getItem('previousResults') || '[]';
     const parsedPreviousData = JSON.parse(previousData);
     setPreviousResults(parsedPreviousData);
-    setIsModalOpen(true); // 모달 열기
+    setIsModalOpen(true);
   };
 
   useEffect(() => {
     const previousData = localStorage.getItem('previousResults') || '[]';
     const parsedPreviousData = JSON.parse(previousData);
-    setPreviousResultsCount(parsedPreviousData.length); // 이전 결과 개수 설정
+    // 오늘 날짜의 결과만 필터링
+    const todayResults = parsedPreviousData.filter(result => 
+      result.stopTime && isSameDay(result.stopTime, new Date())
+    );
+    setPreviousResultsCount(todayResults.length);
   }, []);
 
   return (
@@ -113,99 +118,10 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className='flex flex-col w-full rounded-t-[26px] bg-gray-100 overflow-hidden gap-3'>
+      <div className='flex flex-col w-full rounded-t-[26px] bg-gray-100 overflow-hidden gap-3 pb-20'>
         <TimerList />
         <FAQList />
-        {/* 하위 페이지  편집 및 삭제필요 */}
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            {['type1', 'type2', 'type3', 'custom'].map((typeOption) => (
-              <button
-                key={typeOption}
-                type="button"
-                onClick={() => handleTypeSelect(typeOption)}
-                className={`p-4 rounded-lg text-center transition-colors duration-200
-                  ${type === typeOption 
-                    ? 'bg-blue-500 text-white' 
-                    : 'bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50'
-                  }`}
-              >
-                {t(`type.${typeOption}`)}
-              </button>
-            ))}
-          </div>
-
-          <div className="space-y-2">
-            <label className="block text-gray-700">
-              {t('nameLabel')}:
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder={t('namePlaceholder')}
-                disabled={isNameDisabled}
-                className={`mt-1 block w-full rounded-md border-gray-300 shadow-sm
-                  ${isNameDisabled 
-                    ? 'bg-gray-100 cursor-not-allowed' 
-                    : 'focus:border-blue-500 focus:ring-blue-500'
-                  }`}
-              />
-            </label>
-          </div>
-
-          {type === 'custom' && (
-            <div>
-              <label>
-                Green Time:
-                <input
-                  type="number"
-                  value={customTimes.green}
-                  onChange={(e) => handleCustomTimeChange('green', e.target.value)}
-                  placeholder="분 단위로 입력"
-                />
-              </label>
-              <label>
-                Yellow Time:
-                <input
-                  type="number"
-                  value={customTimes.yellow}
-                  onChange={(e) => handleCustomTimeChange('yellow', e.target.value)}
-                  placeholder="분 단위로 입력"
-                />
-              </label>
-              <label>
-                Red Time:
-                <input
-                  type="number"
-                  value={customTimes.red}
-                  onChange={(e) => handleCustomTimeChange('red', e.target.value)}
-                  placeholder="분 단위로 입력"
-                />
-              </label>
-            </div>
-          )}
-
-          <div className="flex gap-4 justify-center mt-8">
-            <button
-              type="submit"
-              disabled={!name || !type}
-              className={`px-6 py-2 rounded-lg font-medium
-                ${(!name || !type)
-                  ? 'bg-gray-300 cursor-not-allowed'
-                  : 'bg-blue-500 text-white hover:bg-blue-600'
-                }`}
-            >
-              {t('startButton')}
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate(`/${i18n.language}/result`)}
-              className="px-6 py-2 rounded-lg font-medium bg-gray-500 text-white hover:bg-gray-600"
-            >
-              {t('resultButton')}
-            </button>
-          </div>
-        </form>
+        
       </div>
 
       <Modal 

@@ -19,6 +19,10 @@ function Timer() {
   const [stage, setStage] = useState('bg-green-500');
   const [isPaused, setIsPaused] = useState(false);
 
+  const [countdown, setCountdown] = useState(null);
+  const [isSilentMode, setIsSilentMode] = useState(false);
+  const [isCountdownStarted, setIsCountdownStarted] = useState(false); // 카운트다운 시작 여부 관리
+
   const typeSettings = {
     type1: [5, 6, 7, 7.5],
     type2: [1, 1.5, 2, 2.5],
@@ -31,7 +35,7 @@ function Timer() {
   const totalMinutes = minutes + seconds / 60;
 
   useEffect(() => {
-    if (isPaused) return;
+    if (isPaused || isSilentMode || isCountdownStarted) return; // isCountdownStarted 추가
 
     const timer = setInterval(() => {
       setSeconds((prev) => {
@@ -57,7 +61,7 @@ function Timer() {
     }
 
     return () => clearInterval(timer);
-  }, [minutes, seconds, minTime, midTime, expireTime, maxTime, isPaused]);
+  }, [minutes, seconds, minTime, midTime, expireTime, maxTime, isPaused, isSilentMode, isCountdownStarted]);
 
   const handlePause = () => {
     setIsPaused((prev) => !prev);
@@ -79,35 +83,75 @@ function Timer() {
       stopTime,
       type
     }));
-    
-    navigate(`/${i18n.language}/result`);
+
+    if (type === 'type1') {
+      setIsSilentMode(true);
+      setCountdown(null); // 준비 상태로 유지
+      setMinutes(0); // 일반 타이머 초기화
+      setSeconds(0); // 일반 타이머 초기화
+    } else {
+      navigate(`/${i18n.language}/result`);
+    }
   };
 
-  const handleTypeSelect = (selectedType) => {
-    navigate(`/${i18n.language}/timer?name=${name}&type=${selectedType}`);
+  const handleCountdownStart = () => {
+    setCountdown(60); // 침묵의 시간 카운트다운 시작
+    setIsCountdownStarted(true); // 카운트다운이 시작되었음을 표시
   };
+
+  useEffect(() => {
+    let timer;
+    if (countdown !== null && countdown > 0) {
+      timer = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+    } else if (countdown === 0) {
+      navigate(`/${i18n.language}/result`, {
+        state: {
+          time: '1:00',
+          name: localStorage.getItem('savedName') || '이름없음',
+          type: 'type1',
+        }
+      });
+    }
+
+    return () => clearInterval(timer);
+  }, [countdown, navigate, i18n.language]);
 
   return (
     <div className={`timer-page ${stage} text-white flex flex-col w-full items-center justify-center h-screen`}>
-      <h2 className="text-2xl font-bold">Timer for {name}</h2>
-      <p className="text-lg mb-4">{i18n.t(`type.${type}`) || i18n.t(`type.default`)}</p>
+      <h2 className="text-2xl font-bold">{isSilentMode ? '침묵의 시간' : `Timer for ${name}`}</h2>
+      <p className="text-lg mb-4">{isSilentMode ? '' : (i18n.t(`type.${type}`) || i18n.t(`type.default`))}</p>
       <h1 className="text-6xl font-bold">
-        {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+        {isSilentMode ? countdown : `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`}
       </h1>
 
       <div className="flex space-x-4 mt-8">
-        <button
-          onClick={handlePause}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-        >
-          {isPaused ? 'Resume' : 'Pause'}
-        </button>
-        <button
-          onClick={handleStop}
-          className="px-4 py-2 bg-red-500 text-white rounded-lg"
-        >
-          Stop
-        </button>
+        {isSilentMode && !isCountdownStarted ? (
+          <button
+            onClick={handleCountdownStart}
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+          >
+            카운트다운 시작
+          </button>
+        ) : (
+          !isSilentMode && !isCountdownStarted && (
+            <>
+              <button
+                onClick={handlePause}
+                className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+              >
+                {isPaused ? 'Resume' : 'Pause'}
+              </button>
+              <button
+                onClick={handleStop}
+                className="px-4 py-2 bg-red-500 text-white rounded-lg"
+              >
+                Stop
+              </button>
+            </>
+          )
+        )}
       </div>
     </div>
   );

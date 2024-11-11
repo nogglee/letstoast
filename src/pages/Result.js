@@ -30,6 +30,11 @@ function Result() {
       } else {
         setPreviousResults([parsed, ...parsedPreviousData]);
       }
+
+      if (parsed.type === 'type1') {
+        // 1분 타이머에 대한 추가 로직
+        // 예: 타이머 종료 메시지 추가
+      }
     } else {
       navigate(`/${i18n.language}/`);
     }

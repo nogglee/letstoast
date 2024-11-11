@@ -22,6 +22,8 @@ const InfoEntryPage = () => {
       } : undefined
     };
     
+    localStorage.setItem('savedName', name);
+    
     localStorage.setItem('selectedTimer', JSON.stringify({
       name,
       ...timerSettings

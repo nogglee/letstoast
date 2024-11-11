@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
@@ -10,6 +10,14 @@ const InfoEntryPage = () => {
   
   const [name, setName] = useState('');
   const [customTimes, setCustomTimes] = useState({ green: '', yellow: '', red: '' });
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, []);
 
   const handleStart = () => {
     const timerSettings = {
@@ -43,6 +51,7 @@ const InfoEntryPage = () => {
       <div className='info-entry-inner'>
         <label className="label">이름</label>
         <input
+          ref={inputRef}
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
